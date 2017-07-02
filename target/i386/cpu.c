@@ -2800,7 +2800,7 @@ void cpu_x86_cpuid(CPUX86State *env, uint32_t index, uint32_t count,
         *ecx = 0;
         *edx = 0;
         break;
-    case 0xA:
+    case 0xA:// 这里应该就是和设置CPUID.EAX OAH 相关的代码了 以这里为线索继续看
         /* Architectural Performance Monitoring Leaf */
         if (kvm_enabled() && cpu->enable_pmu) {
             KVMState *s = cs->kvm_state;

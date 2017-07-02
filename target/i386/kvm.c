@@ -206,7 +206,11 @@ static struct kvm_cpuid2 *try_get_cpuid(KVMState *s, int max)
     int r, size;
 
     size = sizeof(*cpuid) + max * sizeof(*cpuid->entries);
-    cpuid = g_malloc0(size);
+    /* sizeof(*cpuid) = 8 相当于kvm_cpuid2结构体中的nent和padding的内存空间
+     * sizeof(*cpuid->entries) 相当于kvm_cpuid_entry2的结构体的内存空间
+     * max 是entries数组的长度
+     */
+    cpuid = g_malloc0(size);// 给cpuid分配内存空间 数组长度为max 并且每一位都置0
     cpuid->nent = max;
     r = kvm_ioctl(s, KVM_GET_SUPPORTED_CPUID, cpuid);
     if (r == 0 && cpuid->nent >= max) {
@@ -327,7 +331,7 @@ uint32_t kvm_arch_get_supported_cpuid(KVMState *s, uint32_t function,
     uint32_t cpuid_1_edx;
     bool found = false;
 
-    cpuid = get_supported_cpuid(s);
+    cpuid = get_supported_cpuid(s);// 关键函数
 
     struct kvm_cpuid_entry2 *entry = cpuid_find_entry(cpuid, function, index);
     if (entry) {

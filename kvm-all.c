@@ -2111,7 +2111,7 @@ int kvm_ioctl(KVMState *s, int type, ...)
     va_list ap;
 
     va_start(ap, type);
-    arg = va_arg(ap, void *);
+    arg = va_arg(ap, void *);// arg是第三个参数
     va_end(ap);
 
     trace_kvm_ioctl(type, arg);
