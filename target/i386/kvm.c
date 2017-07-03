@@ -1008,7 +1008,7 @@ int kvm_arch_init_vcpu(CPUState *cs)
     cpuid_data.cpuid.nent = cpuid_i;
 
     cpuid_data.cpuid.padding = 0;
-    r = kvm_vcpu_ioctl(cs, KVM_SET_CPUID2, &cpuid_data);
+    r = kvm_vcpu_ioctl(cs, KVM_SET_CPUID2, &cpuid_data);// 调用kvm cpuid相关的地方在这里 可以看一下 不急
     if (r) {
         goto fail;
     }
